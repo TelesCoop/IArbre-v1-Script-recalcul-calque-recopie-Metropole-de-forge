@@ -11,8 +11,8 @@
 
 variables:
     TRIGRAMME: arb
-    NAMESPACE: "ns-$TRIGRAMME-$NAMESPACE_ENV"
     REPLICA_ENV: 1
+    DOCKER_TLS_CERTDIR: ""
     DEPLOY_NOTE:
       description: "Chaque étape est numérotée dans l'ordre d'exécution. Chaque étape redéploie la totalité de l'environnement avec un parmétrage d'étape de calcul différent."
 
@@ -108,7 +108,6 @@ Build Calqul Python:
   stage: Build Calqul
   environment: $CI_COMMIT_BRANCH
   variables:
-    DOCKER_TLS_CERTDIR: ""
     IMAGE_NAME: calqul-python-$NAMESPACE_ENV
     IMAGE_DIR: ./Dockerfiles/python
   services:
@@ -132,7 +131,6 @@ Build Calqul Postgis:
   stage: Build Calqul
   environment: $CI_COMMIT_BRANCH
   variables:
-    DOCKER_TLS_CERTDIR: ""
     IMAGE_NAME: calqul-db-$NAMESPACE_ENV
     IMAGE_DIR: ./Dockerfiles/db
   services:
@@ -150,7 +148,6 @@ Build Calqul Git-lfs:
   stage: Build Calqul
   environment: $CI_COMMIT_BRANCH
   variables:
-    DOCKER_TLS_CERTDIR: ""
     IMAGE_NAME: calqul-git-lfs-$NAMESPACE_ENV
     IMAGE_DIR: ./Dockerfiles/git
   services:
@@ -174,8 +171,6 @@ Build Calqul Git-lfs:
   stage: Deploy Calqul Buttons
   when: manual
   environment: $CI_COMMIT_BRANCH
-  variables:
-    # NAMESPACE: "ns-$TRIGRAMME-$NAMESPACE_ENV"
   before_script:
     - *prepare_deployment
   script:
