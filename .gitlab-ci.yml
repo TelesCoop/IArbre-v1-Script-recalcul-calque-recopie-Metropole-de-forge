@@ -29,7 +29,7 @@ variables:
 
 # Set_env : copying env sample file and replace values
 .set_env: &set_env
-    - envsubst < cat .env.example > .env
+    - envsubst < .env.example > .env
     - cat .env
     
 # Deployment preparation anchor
