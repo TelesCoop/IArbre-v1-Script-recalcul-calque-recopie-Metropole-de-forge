@@ -76,7 +76,7 @@ VALUES
 ('Romain', 'MATIAS', 'r.matias@exo-dev.fr', '!PlAnT4-Gl!', 'ADMIN'),
 ('Natacha', 'SALMERON', 'n.salmeron@exo-dev.fr', '!PlAnT4-Gl!', 'ADMIN'),
 ('Younes', 'MHARRECH', 'younes.mharrech@cgi.com', '!PlAnT4-Gl!', 'ADMIN'),
-('Pascal', 'GOUBIER', 'pgoubier@grandlyon.com', '!PlAnT4-Gl!', 'ADMIN'),
+('Compte', 'de Démo', 'demo@grandlyon.com', '!PlAnT4-Gl!', 'ADMIN'),
 ('Déborah', 'BESSON', 'debesson@grandlyon.com', '!PlAnT4-Gl!', 'ADMIN'),
 ('Hind', 'NAIT-BARKA', 'hnaitbarka@grandlyon.com', '!PlAnT4-Gl!', 'ADMIN'),
 ('Anaïs', 'HENRY', 'anhenry@grandlyon.com', '!PlAnT4-Gl!', 'ADMIN');
