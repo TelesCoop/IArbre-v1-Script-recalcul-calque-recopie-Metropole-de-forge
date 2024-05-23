@@ -1,11 +1,11 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: calqul-db-service-__NAMESPACE_ENV__
-  namespace: __NAMESPACE__
+  name: calqul-db-service-${NAMESPACE_ENV}
+  namespace: ${NAMESPACE}
 spec:
   selector:
-    app: calqul-db-__NAMESPACE_ENV__
+    app: calqul-db-${NAMESPACE_ENV}
     tier: database
   ports:
     - name: http-5432

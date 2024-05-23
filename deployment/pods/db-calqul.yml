@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: calqul-db-__NAMESPACE_ENV__
-  namespace: __NAMESPACE__
+  name: calqul-db-${NAMESPACE_ENV}
+  namespace: ${NAMESPACE}
   labels:
-    apps: calqul-db-__NAMESPACE_ENV__
+    apps: calqul-db-${NAMESPACE_ENV}
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: calqul-db-__NAMESPACE_ENV__
+      app: calqul-db-${NAMESPACE_ENV}
       role: primary
       tier: database
   template:
     metadata:
       labels:
-        app: calqul-db-__NAMESPACE_ENV__
+        app: calqul-db-${NAMESPACE_ENV}
         role: primary
         tier: database
     spec:
@@ -24,10 +24,10 @@ spec:
       volumes:
         - name: arb-data
           persistentVolumeClaim: 
-            claimName: pvc-02-__NAMESPACE__-claim
+            claimName: pvc-02-${NAMESPACE}-claim
       containers:
-      - name: calqul-db-__NAMESPACE_ENV__
-        image: registry.forge.grandlyon.com/erasme/script-recalcul-calque/calqul-db-__NAMESPACE_ENV__
+      - name: calqul-db-${NAMESPACE_ENV}
+        image: registry.forge.grandlyon.com/erasme/script-recalcul-calque/calqul-db-${NAMESPACE_ENV}
         imagePullPolicy: Always
         ports:
         - containerPort: 5432
@@ -44,17 +44,17 @@ spec:
           periodSeconds: 20
         env:
           - name: POSTGRES_DB
-            value: "__POSTGRES_DB__"
+            value: "${POSTGRES_DB}"
           - name: POSTGRES_PASSWORD
-            value: "__POSTGRES_PASSWORD__"
+            value: "${POSTGRES_PASSWORD}"
           - name: POSTGRES_PORT
-            value: "__POSTGRES_PORT__"
+            value: "${POSTGRES_PORT}"
           - name: POSTGRES_SERVER
-            value: "__POSTGRES_SERVER__"
+            value: "${POSTGRES_SERVER}"
           - name: POSTGRES_USER
-            value: "__POSTGRES_USER__"
+            value: "${POSTGRES_USER}"
           - name: POSTGRES_SCHEMA
-            value: "__POSTGRES_SCHEMA__"
+            value: "${POSTGRES_SCHEMA}"
             # need to define PGDATA env var because not using the default /var/lib/postgresql/data, but a subpath under it.
           - name: PGDATA
             value: /arb-data/pgdata

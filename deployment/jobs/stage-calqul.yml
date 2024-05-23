@@ -4,7 +4,7 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: calqul-stage-__CALQUL_ACTION__-__NAMESPACE_ENV__
+  name: calqul-stage-${CALQUL_ACTION}-${NAMESPACE_ENV}
 spec:
   # maximum duration the job can run => 160h 
   activeDeadlineSeconds: 576000
@@ -13,17 +13,17 @@ spec:
   parallelism: 1
   template:         
     metadata:
-      name: calqul-stage-__CALQUL_ACTION__-__NAMESPACE_ENV__
+      name: calqul-stage-${CALQUL_ACTION}-${NAMESPACE_ENV}
     spec:
       volumes:
       - name: arb-data
         persistentVolumeClaim: 
-          claimName: pvc-03-__NAMESPACE__-claim
+          claimName: pvc-03-${NAMESPACE}-claim
       containers:
-      - name: calqul-stage-__CALQUL_ACTION__-__NAMESPACE_ENV__
+      - name: calqul-stage-${CALQUL_ACTION}-${NAMESPACE_ENV}
         # Image Python de calcul du calque
-        image: registry.forge.grandlyon.com/erasme/script-recalcul-calque/calqul-python-__NAMESPACE_ENV__
-        command: ["/bin/bash", "-c", "/app/launch.sh __CALQUL_ACTION__ __NAMESPACE_ENV__ __POSTGRES_SERVER__ __POSTGRES_PORT__ __POSTGRES_DB__ __POSTGRES_USER__" ]
+        image: registry.forge.grandlyon.com/erasme/script-recalcul-calque/calqul-python-${NAMESPACE_ENV}
+        command: ["/bin/bash", "-c", "/app/launch.sh ${CALQUL_ACTION} ${NAMESPACE_ENV} ${POSTGRES_SERVER} ${POSTGRES_PORT} ${POSTGRES_DB} ${POSTGRES_USER}" ]
         volumeMounts:
         - name: arb-data
           mountPath: "/arb-data/source-files"
@@ -36,7 +36,7 @@ spec:
           - name: PGPASSWORD
             valueFrom:
               secretKeyRef:
-                name: database-secret-__NAMESPACE_ENV__
+                name: database-secret-${NAMESPACE_ENV}
                 key: password 
           - name: HTTP_PROXY
             value: "http://proxyhttppro.grandlyon.fr:8080"
@@ -44,11 +44,11 @@ spec:
             value: "http://proxyhttppro.grandlyon.fr:8080"
         resources:
           requests:
-            cpu: __CPU_REQUEST__  # 1
-            memory: __MEM_REQUEST__ # 2000Mi
+            cpu: ${CPU_REQUEST}  # 1
+            memory: ${MEM_REQUEST} # 2000Mi
           limits:
-            cpu: __CPU_LIMIT__ # 1
-            memory: __MEM_LIMIT__ # 8000Mi
+            cpu: ${CPU_LIMIT} # 1
+            memory: ${MEM_LIMIT} # 8000Mi
         readinessProbe:
           exec:
             command:
@@ -73,8 +73,8 @@ spec:
 
       # Clone or update sources data before calculation
       initContainers:
-      - name: calqul-refresh-repository-__NAMESPACE_ENV__
-        image: registry.forge.grandlyon.com/erasme/script-recalcul-calque/calqul-git-lfs-__NAMESPACE_ENV__
+      - name: calqul-refresh-repository-${NAMESPACE_ENV}
+        image: registry.forge.grandlyon.com/erasme/script-recalcul-calque/calqul-git-lfs-${NAMESPACE_ENV}
         env:
           - name: GIT_USERNAME
             valueFrom:
