@@ -144,6 +144,7 @@ Build Calqul Git-lfs:
 # *********************************************************************************************
 # Here is a reuseable section for calqul stage deployment
 .deploy_setup:
+  image: registry.gitlab.grandlyon.fr/openshift-as-code/reposit-gl/oc-client:4.10_extended
   stage: Deploy Calqul Buttons
   when: manual
   environment: $CI_COMMIT_BRANCH
