@@ -23,6 +23,7 @@ spec:
       - name: calqul-stage-${CALQUL_ACTION}-${NAMESPACE_ENV}
         # Image Python de calcul du calque
         image: registry.forge.grandlyon.com/erasme/script-recalcul-calque/calqul-python-${NAMESPACE_ENV}
+        imagePullPolicy: Always
         command: ["/bin/bash", "-c", "/app/launch.sh ${CALQUL_ACTION} ${NAMESPACE_ENV} ${POSTGRES_SERVER} ${POSTGRES_PORT} ${POSTGRES_DB} ${POSTGRES_USER}" ]
         volumeMounts:
         - name: arb-data
@@ -75,6 +76,7 @@ spec:
       initContainers:
       - name: calqul-refresh-repository-${NAMESPACE_ENV}
         image: registry.forge.grandlyon.com/erasme/script-recalcul-calque/calqul-git-lfs-${NAMESPACE_ENV}
+        imagePullPolicy: Always
         env:
           - name: GIT_USERNAME
             valueFrom:
