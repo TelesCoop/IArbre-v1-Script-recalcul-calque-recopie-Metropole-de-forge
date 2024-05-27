@@ -4,12 +4,12 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: calqul-db-ext-__NAMESPACE_ENV__
-  namespace: __NAMESPACE__
+  name: calqul-db-ext-${NAMESPACE_ENV}
+  namespace: ${NAMESPACE}
 spec:
   type: NodePort
   selector:
-    app: calqul-db-__NAMESPACE_ENV__
+    app: calqul-db-${NAMESPACE_ENV}
     tier: database
   ports:
     - name: tcp-5432-ext
