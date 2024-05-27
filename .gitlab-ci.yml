@@ -54,20 +54,20 @@ variables:
   # 7. all              => Launch all stages in described order above.
 .apply_confs: &apply_confs
   # Secrets
-  - envsubst < deployment/secrets/database-secret.yml > oc apply -f -
+  - envsubst < deployment/secrets/database-secret.yml | oc apply -f -
 
   # PVC Access
-  -  envsubst < deployment/pods/pvc-calqul.yml > oc apply -f -
+  -  envsubst < deployment/pods/pvc-calqul.yml | oc apply -f -
 
   # Db
-  - envsubst < deployment/pods/db-calqul.yml > oc apply -f -
-  - envsubst < deployment/services/db-calqul.yml > oc apply -f -
+  - envsubst < deployment/pods/db-calqul.yml | oc apply -f -
+  - envsubst < deployment/services/db-calqul.yml | oc apply -f -
 
   # Db Dev & Debug only : this maps an external port to acces remotly to the database.
-  - envsubst < deployment/services/db-calqul-debug.yml > oc apply -f -
+  - envsubst < deployment/services/db-calqul-debug.yml | oc apply -f -
   
   # Job Stage
-  - envsubst < deployment/jobs/stage-calqul.yml > oc apply -f -
+  - envsubst < deployment/jobs/stage-calqul.yml | oc apply -f -
   
 ################################################################################
 #    CI/CD Stages
@@ -144,7 +144,6 @@ Build Calqul Git-lfs:
 # *********************************************************************************************
 # Here is a reuseable section for calqul stage deployment
 .deploy_setup:
-  image: registry.gitlab.grandlyon.fr/openshift-as-code/reposit-gl/oc-client:4.10_extended
   stage: Deploy Calqul Buttons
   when: manual
   environment: $CI_COMMIT_BRANCH
