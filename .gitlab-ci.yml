@@ -77,15 +77,15 @@ variables:
 # Applying openshift conf anchor
 .apply_confs: &apply_confs
   # Secrets
-  - oc delete secret database-secret-$NAMESPACE_ENV
+  #- oc delete secret database-secret-$NAMESPACE_ENV
   - oc apply -f deployment/secrets/database-secret.yml
 
   # PVC Access
-  - oc delete pods --selector pod-name=calqul-pvc-access-$NAMESPACE_ENV 
+  #- oc delete pods --selector pod-name=calqul-pvc-access-$NAMESPACE_ENV 
   - oc apply -f deployment/pods/pvc-calqul.yml
 
   # Db
-  - oc delete pods --selector pod-name=calqul-db-$NAMESPACE_ENV 
+  #- oc delete pods --selector pod-name=calqul-db-$NAMESPACE_ENV 
   - oc apply -f deployment/pods/db-calqul.yml
   - oc apply -f deployment/services/db-calqul.yml
 
@@ -93,7 +93,7 @@ variables:
   - oc apply -f deployment/services/db-calqul-debug.yml
   
   # Job Stage
-  - oc delete jobs --selector job-name=calqul-stage-$CALQUL_ACTION-$NAMESPACE_ENV 
+  #- oc delete jobs --selector job-name=calqul-stage-$CALQUL_ACTION-$NAMESPACE_ENV 
   - oc create -f deployment/jobs/stage-calqul.yml
   
 ################################################################################
