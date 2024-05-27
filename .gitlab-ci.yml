@@ -42,27 +42,7 @@ variables:
     - sed -i "s/__POSTGRES_USER__/$POSTGRES_USER/g" .env
     - sed -i "s/__POSTGRES_SCHEMA__/$POSTGRES_SCHEMA/g" .env
     
-# Deployment preparation anchor
-.prepare_deployment: &prepare_deployment
-  - export NO_PROXY=grandlyon.fr
-  # - export KUBECONFIG=$KUBECONFIG_DEV
-  - echo "Preparing Deployment on $NAMESPACE ($NAMESPACE_ENV)"
-
-  # Secrets
-  - envsubst < deployment/secrets/database-secret.yml > deployment/secrets/database-secret.yml
-
-  # PVC Access
-  - envsubst < deployment/pods/pvc-calqul.yml > deployment/pods/pvc-calqul.yml
-
-  # DB deployment file
-  - envsubst < deployment/pods/db-calqul.yml > deployment/pods/db-calqul.yml
-
-  # DB service file
-  - envsubst < deployment/services/db-calqul.yml > deployment/services/db-calqul.yml
-
-  # DB service file - external access
-  - envsubst < deployment/services/db-calqul-external.yml > deployment/services/db-calqul-external.yml
-
+# Applying openshift conf anchor
   # Job for all various stages : 
   # cleanup|init-grid|init-datas|compute-factors|compute-indices|dump-datas|all
   # 0. cleanup          => Clean progress tables, clean tiles cache, before a total recalculation.
@@ -72,29 +52,22 @@ variables:
   # 5. compute-indices  => Calculates indices of each tile.
   # 6. dump-datas       => make a dump of the database. 
   # 7. all              => Launch all stages in described order above.
-  - envsubst < deployment/jobs/stage-calqul.yml > deployment/jobs/stage-calqul.yml
-
-# Applying openshift conf anchor
 .apply_confs: &apply_confs
   # Secrets
-  #- oc delete secret database-secret-$NAMESPACE_ENV
-  - oc apply -f deployment/secrets/database-secret.yml
+  - envsubst < deployment/secrets/database-secret.yml > oc apply -f -
 
   # PVC Access
-  #- oc delete pods --selector pod-name=calqul-pvc-access-$NAMESPACE_ENV 
-  - oc apply -f deployment/pods/pvc-calqul.yml
+  -  envsubst < deployment/pods/pvc-calqul.yml > oc apply -f -
 
   # Db
-  #- oc delete pods --selector pod-name=calqul-db-$NAMESPACE_ENV 
-  - oc apply -f deployment/pods/db-calqul.yml
-  - oc apply -f deployment/services/db-calqul.yml
+  - envsubst < deployment/pods/db-calqul.yml > oc apply -f -
+  - envsubst < deployment/services/db-calqul.yml > oc apply -f -
 
   # Db Dev & Debug only : this maps an external port to acces remotly to the database.
-  - oc apply -f deployment/services/db-calqul-debug.yml
+  - envsubst < deployment/services/db-calqul-debug.yml > oc apply -f -
   
   # Job Stage
-  #- oc delete jobs --selector job-name=calqul-stage-$CALQUL_ACTION-$NAMESPACE_ENV 
-  - oc create -f deployment/jobs/stage-calqul.yml
+  - envsubst < deployment/jobs/stage-calqul.yml > oc apply -f -
   
 ################################################################################
 #    CI/CD Stages
@@ -174,8 +147,6 @@ Build Calqul Git-lfs:
   stage: Deploy Calqul Buttons
   when: manual
   environment: $CI_COMMIT_BRANCH
-  before_script:
-    - *prepare_deployment
   script:
    - *apply_confs
   rules:
