@@ -139,10 +139,20 @@ Doc :
  - https://cloud.redhat.com/blog/openshift-jobs
  - https://docs.openshift.com/container-platform/4.11/nodes/jobs/nodes-nodes-jobs.html
 
-### Suppression d'un job
+#### Installation d'un nouvel environnement
+
+1. Créer un nouveau namespace openShift
+   1. Créer les PVC sur le molèdes des PVC existants danss l'environnement de dev.
+   2. Créer un Runner (cf https://guide.air.grandlyon.fr)
+   3. Récupérer le KUBECONFIG
+2. Duppliquer toutes les variables Gitlab liées à un environnement
+3. Créer le token d'accès au dépôt des données cartographiques
+   Sous la console OpenShift, menu 'Secrets' copier le Yaml du secret àrb-data-access-token` et le créer dans le nouveau namspace.
+
+#### Suppression d'un job
  - https://access.redhat.com/documentation/en-us/openshift_container_platform/3.4/html/developer_guide/dev-guide-scheduled-jobs
 
-### Commandes lancées par le job
+#### Commandes lancées par le job
 - main.py initCommunes
   
 - main.py initGrid
