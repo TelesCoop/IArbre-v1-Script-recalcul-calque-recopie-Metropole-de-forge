@@ -143,6 +143,8 @@ Doc :
 
 1. Créer un nouveau namespace openShift
    1. Créer les PVC sur le molèdes des PVC existants danss l'environnement de dev.
+      - pvc-02-ns-arb-[ENV]-claim : 40Go - cephfs
+      - pvc-03-ns-arb-[ENV]-claim : 20Go -  cephfs
    2. Créer un Runner (cf https://guide.air.grandlyon.fr)
    3. Récupérer le KUBECONFIG
 2. Duppliquer toutes les variables Gitlab liées à un environnement

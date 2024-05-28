@@ -56,8 +56,8 @@ variables:
   # Secrets
   - envsubst < deployment/secrets/database-secret.yml | oc apply -f -
 
-  # PVC Access
-  -  envsubst < deployment/pods/pvc-calqul.yml | oc apply -f -
+  # # PVC Access
+  # -  envsubst < deployment/pods/pvc-calqul.yml | oc apply -f -
 
   # Db
   - envsubst < deployment/pods/db-calqul.yml | oc apply -f -
