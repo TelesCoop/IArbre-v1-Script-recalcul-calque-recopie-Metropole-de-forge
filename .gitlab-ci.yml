@@ -32,6 +32,7 @@ variables:
 # set_db_env
 .set_db_env: &set_db_env
     - grep -i -E "^export [a-z0-9_]*=[a-z0-9_]*" $DB_PARAMS | grep -v "[;&]" > env.db-params.tmp; cat env.db-params.tmp; source env.db-params.tmp
+    - env | sort | grep "POSTGRES_"
 
 # Set_env_file : copying env sample file and replace values
 .set_env_file: &set_env_file
@@ -154,7 +155,8 @@ Build Calqul Git-lfs:
   when: manual
   environment: $CI_COMMIT_BRANCH
   script:
-   - *apply_confs
+    - *set_db_env
+    - *apply_confs
   rules:
     - if: $CI_COMMIT_BRANCH != $CI_DEFAULT_BRANCH
   tags:
