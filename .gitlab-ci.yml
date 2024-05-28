@@ -21,7 +21,8 @@ variables:
 #    Anchors
 ################################################################################
 .build_and_push_image: &build_and_push_image
-  - docker build --pull --tag "$CI_REGISTRY_IMAGE/$IMAGE_NAME:latest" --build-arg NAMESPACE_ENV=$NAMESPACE_ENV --build-arg DB_HOST_ENV=$POSTGRES_SERVER --build-arg  DB_PORT_ENV=$POSTGRES_PORT --build-arg  DB_NAME_ENV=$POSTGRES_DB --build-arg  DB_USER_ENV=$POSTGRES_USER  .
+  # - docker build --pull --tag "$CI_REGISTRY_IMAGE/$IMAGE_NAME:latest" --build-arg NAMESPACE_ENV=$NAMESPACE_ENV --build-arg DB_HOST_ENV=$POSTGRES_SERVER --build-arg  DB_PORT_ENV=$POSTGRES_PORT --build-arg  DB_NAME_ENV=$POSTGRES_DB --build-arg  DB_USER_ENV=$POSTGRES_USER .
+  - docker build --pull --tag "$CI_REGISTRY_IMAGE/$IMAGE_NAME:latest" --build-arg NAMESPACE_ENV=$NAMESPACE_ENV .
   - docker push "$CI_REGISTRY_IMAGE/$IMAGE_NAME:latest"
 
 # Docker Authentification anchor

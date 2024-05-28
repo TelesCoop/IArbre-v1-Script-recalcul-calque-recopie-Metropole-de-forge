@@ -10,4 +10,5 @@ export POSTGRES_HOST_AUTH_METHOD=trust
 
 docker build -t postgis . \
 --build-arg NAMESPACE_ENV=d01 \
---build-arg PGDATA=../arb-data/pgdata
+--build-arg PGDATA=../arb-data/pgdata \
+--build-arg POSTGRES_HOST_AUTH_METHOD=trust
