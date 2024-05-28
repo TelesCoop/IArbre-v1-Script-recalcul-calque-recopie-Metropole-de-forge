@@ -24,7 +24,7 @@ spec:
         # Image Python de calcul du calque
         image: registry.forge.grandlyon.com/erasme/script-recalcul-calque/calqul-python-${NAMESPACE_ENV}
         imagePullPolicy: Always
-        command: ["/bin/bash", "-c", "/app/launch.sh ${CALQUL_ACTION} ${NAMESPACE_ENV} ${POSTGRES_SERVER} ${POSTGRES_PORT} ${POSTGRES_DB} ${POSTGRES_USER}" ]
+        command: ["/bin/bash", "-c", "/app/launch.sh ${CALQUL_ACTION} ${NAMESPACE_ENV} ${POSTGRES_SERVER}-${NAMESPACE_ENV} ${POSTGRES_PORT} ${POSTGRES_DB} ${POSTGRES_USER}" ]
         volumeMounts:
         - name: arb-data
           mountPath: "/arb-data/source-files"
