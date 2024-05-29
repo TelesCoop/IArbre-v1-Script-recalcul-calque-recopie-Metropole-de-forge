@@ -110,7 +110,8 @@ if [ $action == "cleanup"  ] || [ $action == "all"  ]; then
   check
 
   comment "Cleanup tiles cache"
-  [ -f "$cache_dir/*.png" ] && find $cache_dir -name "*.png" -exec rm -f {} \;
+  # v v  No double quotes otherwise wildcard will not be interpreted
+  [ -f $cache_dir/*.png ] && find $cache_dir -name "*.png" -exec rm -f {} \;
   check
 fi
 
