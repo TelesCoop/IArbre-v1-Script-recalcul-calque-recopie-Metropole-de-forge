@@ -110,7 +110,7 @@ if [ $action == "cleanup"  ] || [ $action == "all"  ]; then
   check
 
   comment "Cleanup tiles cache"
-  find $cache_dir -name "*.png" -exec rm -f {} \;
+  [[ -d $cache_dir ]] && find $cache_dir -name "*.png" -exec rm -f {} \;
   check
 fi
 
