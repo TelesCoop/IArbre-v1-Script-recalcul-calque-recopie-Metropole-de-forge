@@ -109,8 +109,11 @@ if [ $action == "cleanup"  ] || [ $action == "all"  ]; then
   python3 main.py cleanup
   check
 
-  comment "Cleanup tiles cache"
-  find $cache_dir -name "*.png" -exec rm -f {} \;
+  [ -d  $cache_dir ] && {
+    comment "Cleanup tiles cache"
+    find $cache_dir -name "*.png" -exec rm -f {} \;
+    # No check for this.
+  }
 fi
 
 if [ $action == "init-grid"  ] || [ $action == "all"  ]; then
