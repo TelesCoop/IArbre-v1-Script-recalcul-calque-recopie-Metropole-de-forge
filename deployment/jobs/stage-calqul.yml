@@ -95,7 +95,8 @@ spec:
         command:
         - /bin/sh
         - -c
-        - env | sort; if [ -d /arb-data/source-files/data-recalcul-calque/.git ]; then cd /arb-data/source-files/data-recalcul-calque; git pull origin main; else mkdir -p /arb-data/source-files/data-recalcul-calque; cd /arb-data/source-files; echo "GIT_USERNAME=${GIT_USERNAME}"; echo "GIT_PASSWORD=${GIT_PASSWORD}"; git lfs clone https://${GIT_USERNAME}:${GIT_PASSWORD}@forge.grandlyon.com/erasme/sources-recalcul-calque.git ./data-recalcul-calque/; fi; echo "Data ready !"; sleep 300;
+        # - env | sort; if [ -d /arb-data/source-files/data-recalcul-calque/.git ]; then cd /arb-data/source-files/data-recalcul-calque; git pull origin main; else mkdir -p /arb-data/source-files/data-recalcul-calque; cd /arb-data/source-files; echo "GIT_USERNAME=$GIT_USERNAME"; echo "GIT_PASSWORD=$GIT_PASSWORD"; git lfs clone https://$GIT_USERNAME:$GIT_PASSWORD@forge.grandlyon.com/erasme/sources-recalcul-calque.git ./data-recalcul-calque/; fi; echo "Data ready !"; sleep 300;
+        - env | sort; echo "GIT_USERNAME=$GIT_USERNAME"; echo "GIT_PASSWORD=$GIT_PASSWORD"; 
         volumeMounts:
         - name: arb-data
           mountPath: "/arb-data/source-files"
