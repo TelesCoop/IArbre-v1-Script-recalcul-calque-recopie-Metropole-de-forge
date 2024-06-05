@@ -95,7 +95,7 @@ spec:
         command:
         - /bin/sh
         - -c
-        - env | sort; echo "GIT_USERNAME="${GIT_USERNAME}; echo "GIT_PASSWORD="${GIT_PASSWORD}; 
+        - echo "GIT_USERNAME="${GIT_USERNAME}; echo "GIT_PASSWORD="${GIT_PASSWORD}; 
         volumeMounts:
         - name: arb-data
           mountPath: "/arb-data/source-files"
