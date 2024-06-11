@@ -852,7 +852,7 @@ def getProgress(DBcursor, DBSchema, codeInsee, id_factor=None):
         stage = 'factors'
         qryFilter = ' and id_factor = {}'.format(id_factor)
 
-    qry = 'SELECT count(1) FROM '+ DBSchema + '.'  + stage + '_progress WHERE insee = ' + codeInsee + qryFilter
+    qry = 'SELECT count(*) FROM '+ DBSchema + '.'  + stage + '_progress WHERE insee = ' + codeInsee + qryFilter
     debugLog(style.YELLOW, qry, logging.INFO)
     DBcursor.execute(qry)
     # results = DBcursor.fetchall() 
