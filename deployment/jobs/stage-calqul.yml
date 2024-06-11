@@ -80,7 +80,7 @@ spec:
         command:
         - /bin/sh
         - -c
-        - env | sort; echo "GIT_USERNAME=\${GIT_USERNAME}"; echo "GIT_PASSWORD=\${GIT_PASSWORD}";
+        - 'env | sort; echo "GIT_USERNAME=${GIT_USERNAME}"; echo "GIT_PASSWORD=${GIT_PASSWORD}";'
         env:
           - name: GIT_USERNAME
             valueFrom:
