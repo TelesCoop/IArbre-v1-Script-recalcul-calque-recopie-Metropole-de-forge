@@ -8,5 +8,8 @@ RUN apk add git-lfs
 RUN git lfs install && \
 git config --global init.defaultBranch main
 
+COPY ./update_data.sh /tmp/update_data.sh
+RUN chmod +x /tmp/update_data.sh
+
 ENTRYPOINT [ "/bin/sh" ]
 

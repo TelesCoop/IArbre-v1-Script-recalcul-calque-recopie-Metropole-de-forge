@@ -1,19 +1,38 @@
-#/bin/sh
+#!/bin/sh
 
-echo "-------------------------------------------"
-echo "GIT_USERNAME=$GIT_USERNAME"
-echo "GIT_PASSWORD=$GIT_PASSWORD"
-echo "-------------------------------------------"
-
-mkdir -p /arb-data/source-files/data-recalcul-calque
-cd /arb-data/source-files/data-recalcul-calque
-
-# Init command does not do a 'git clone' beacause this is only working at the first init time.
-# It does a 'git init + git remote add + git fetch + git checkout' instead.
-# This works in every case.
-[[ ! -d ".git" ]] && { 
-    git init
-    git remote add origin https://${GIT_USERNAME}:${GIT_PASSWORD}@forge.grandlyon.com/erasme/sources-recalcul-calque.git
+# Formatting log line
+comment () {
+  echo -e "\e[39m\t-> $1\e[39m"
 }
-git checkout .
-git pull origin main
+
+# Check the last command return code (must be insterted just after the commend )
+check () {
+  if [ $? -eq 0 ]; then
+   comment "\e[32mOk.\e[39m"
+  else
+   comment "\e[31mERROR !...\e[39m"
+   exit 1
+  fi;
+}
+
+######################################################################
+# MAIN
+######################################################################
+# Cloning or de pulling data to calculate the calq 
+if [ -d /arb-data/source-files/data-recalcul-calque/.git ]; then 
+    comment "Entering in data directory..."
+    cd /arb-data/source-files/data-recalcul-calque
+    check
+    comment "Pulling last version of data repo..."
+    git pull origin main
+    check
+else 
+    comment "This is the first time we run this script, we have to clone data repo..."
+    mkdir -p /arb-data/source-files/data-recalcul-calque
+    cd /arb-data/source-files
+    comment "Cloning data..."
+    git lfs clone https://$GIT_USERNAME:$GIT_PASSWORD@forge.grandlyon.com/erasme/sources-recalcul-calque.git ./data-recalcul-calque/;
+    check
+fi
+echo "Data ready !"
+exit 0

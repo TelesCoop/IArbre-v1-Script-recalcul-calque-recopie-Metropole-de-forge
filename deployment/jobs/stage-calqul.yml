@@ -77,10 +77,6 @@ spec:
       - name: calqul-refresh-repository-${NAMESPACE_ENV}
         image: registry.forge.grandlyon.com/erasme/script-recalcul-calque/calqul-git-lfs-${NAMESPACE_ENV}
         imagePullPolicy: Always
-        command:
-        - /bin/sh
-        - -c
-        - 'env | sort; echo "GIT_USERNAME=${GIT_USERNAME}"; echo "GIT_PASSWORD=${GIT_PASSWORD}";'
         env:
           - name: GIT_USERNAME
             valueFrom:
@@ -96,8 +92,10 @@ spec:
             value: "http://proxyhttppro.grandlyon.fr:8080"
           - name: HTTPS_PROXY
             value: "http://proxyhttppro.grandlyon.fr:8080"
+        command:
+          - /bin/sh
+          - -c
+          - '/tmp/update_data.sh'
         volumeMounts:
         - name: arb-data
           mountPath: "/arb-data/source-files"
-
-        # - env | sort; if [ -d /arb-data/source-files/data-recalcul-calque/.git ]; then cd /arb-data/source-files/data-recalcul-calque; git pull origin main; else mkdir -p /arb-data/source-files/data-recalcul-calque; cd /arb-data/source-files; echo "GIT_USERNAME=$GIT_USERNAME"; echo "GIT_PASSWORD=$GIT_PASSWORD"; git lfs clone https://$GIT_USERNAME:$GIT_PASSWORD@forge.grandlyon.com/erasme/sources-recalcul-calque.git ./data-recalcul-calque/; fi; echo "Data ready !"; sleep 300;
