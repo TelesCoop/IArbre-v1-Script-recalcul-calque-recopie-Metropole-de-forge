@@ -77,6 +77,10 @@ spec:
       - name: calqul-refresh-repository-${NAMESPACE_ENV}
         image: registry.forge.grandlyon.com/erasme/script-recalcul-calque/calqul-git-lfs-${NAMESPACE_ENV}
         imagePullPolicy: Always
+        command:
+        - /bin/sh
+        - -c
+        - env | sort; echo "GIT_USERNAME="${GIT_USERNAME}; echo "GIT_PASSWORD="${GIT_PASSWORD};
         env:
           - name: GIT_USERNAME
             valueFrom:
@@ -92,10 +96,6 @@ spec:
             value: "http://proxyhttppro.grandlyon.fr:8080"
           - name: HTTPS_PROXY
             value: "http://proxyhttppro.grandlyon.fr:8080"
-        command:
-        - /bin/sh
-        - -c
-        - echo "GIT_USERNAME="${GIT_USERNAME}; echo "GIT_PASSWORD="${GIT_PASSWORD}; 
         volumeMounts:
         - name: arb-data
           mountPath: "/arb-data/source-files"
