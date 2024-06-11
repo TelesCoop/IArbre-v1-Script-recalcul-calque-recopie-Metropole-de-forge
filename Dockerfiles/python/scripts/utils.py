@@ -856,15 +856,8 @@ def getProgress(DBcursor, DBSchema, codeInsee, id_factor=None):
     debugLog(style.YELLOW, qry, logging.INFO)
     DBcursor.execute(qry)
     # results = DBcursor.fetchall() 
-    try:
-        dataValues = DBcursor.fetchone()[0]
-    except:
-        try:
-            # Accéder à l'élément à l'indice 0 de la première liste
-            dataValues = DBcursor.fetchall()[0][0]  
-        except:
-            results = DBcursor.fetchall() 
-            dataValues = results[0]['count']
+
+    (dataValues,) = DBcursor.fetchone()
 
     debugLog(style.YELLOW, "{}".format(dataValues), logging.INFO)
     # dataValues = results[0]['count'] 
