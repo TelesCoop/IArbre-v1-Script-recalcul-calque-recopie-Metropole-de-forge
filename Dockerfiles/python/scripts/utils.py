@@ -855,14 +855,14 @@ def getProgress(DBcursor, DBSchema, codeInsee, id_factor=None):
     qry = 'SELECT count(*) FROM '+ DBSchema + '.'  + stage + '_progress WHERE insee = ' + codeInsee + qryFilter
     debugLog(style.YELLOW, qry, logging.INFO)
     DBcursor.execute(qry)
-    debugLog(style.YELLOW, "fetchall: {}".format(DBcursor.fetchall()), logging.INFO)
-    debugLog(style.YELLOW, "fetchone: {}".format(DBcursor.fetchone()), logging.INFO)
+    # debugLog(style.YELLOW, "fetchall: {}".format(DBcursor.fetchall()), logging.INFO)
+    # debugLog(style.YELLOW, "fetchone: {}".format(DBcursor.fetchone()), logging.INFO)
 
     # results = DBcursor.fetchall() 
 
-    (dataValues,) = DBcursor.fetchone()
-
-    debugLog(style.YELLOW, "{}".format(dataValues), logging.INFO)
+    dataValues = DBcursor.fetchone()[0]
+    
+    debugLog(style.YELLOW, "fetchone : {}".format(dataValues), logging.INFO)
     # dataValues = results[0]['count'] 
     # dataValues = DBcursor.fetchall()[0][0]  # Accéder à l'élément à l'indice 0 de la première liste
     return dataValues
