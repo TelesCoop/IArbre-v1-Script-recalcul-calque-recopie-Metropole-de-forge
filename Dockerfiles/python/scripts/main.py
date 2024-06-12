@@ -1050,6 +1050,8 @@ def initEnv():
         "user"      : os.getenv('DB_USER'),
         "password"  : os.getenv('DB_PWD'),
         "database"  : os.getenv('DB_NAME'),
+        "keepalives"  : 1,
+        "keepalives_idle"  : 5,
     }
     DB_schema = os.getenv('DB_SCHEMA').strip()
     PythonLaunch = os.getenv('PYTHON_LAUNCH').strip()
