@@ -866,8 +866,7 @@ def getProgress(DBcursor, DBSchema, codeInsee, id_factor=None):
 
     if dataValues is None:
         return 0   
-    # return dataValues['count'] 
-    return dataValues
+    return dataValues['count'] 
 
 def resetProgress(DB_params, DB_schema):
     debugLog(style.WHITE, "Deleting process tables...", logging.INFO)
