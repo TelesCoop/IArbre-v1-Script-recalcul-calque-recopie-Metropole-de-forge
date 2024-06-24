@@ -187,4 +187,7 @@ exemple : si vous relancez 3, faîtes 3,4,5
  
  >   __Par exemple__, pour l'étape `computeFactor`, le nom du job dans OpenShift est `calqul-stage-compute-factors-r01`, 
  >   et le nom du pod associé à ce job est de la forme `calqul-stage-compute-factors-r01-xxxxx`
- 
+
+ 3. Dans la pipeline du projet, relancer l'étape via l'interface web 
+
+![Listes des étapes du calcul](doc/etapes.png)
