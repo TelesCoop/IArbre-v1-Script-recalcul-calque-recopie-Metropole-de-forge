@@ -41,22 +41,7 @@ def initLogging(logsPath):
     logFilePath = logsPath + 'log_' + start_date.strftime("%d-%m-%Y") + '.log'
 
     if os.path.isfile(logFilePath):
-        # debugLog(style.YELLOW, "The log file {} already exist".format(logFilePath), logging.INFO)
-
-        # Ask user to clean log ?
-        # while True:
-        #     cleanLogResponse = input("Do you want to clean the log file {} ? (y/n) : ".format(logFilePath))
-        #     if cleanLogResponse.lower() not in ('y', 'n'):
-        #         print(style.RED + "Sorry, wrong response... \n", style.RESET)
-        #     else:
-        #         # Good response
-        #         break
-
-        # if cleanLogResponse.lower() == 'y':
         os.remove(logFilePath)
-            # print(style.GREEN + "Log file {} was reset successfully \n".format(logFilePath), style.RESET)
-        # else:
-        #     print('\n')
 
     # Init instance of logger
     currLogger = logging.getLogger('main')
@@ -213,9 +198,6 @@ def connectDB(params_DB, jsonEnable = False):
             cur = conn.cursor(cursor_factory=RealDictCursor)
         else:
             cur = conn.cursor()
-
-        # Log
-        # debugLog(style.GREEN, "Database connection successfully opened", logging.INFO)
         
         return conn, cur
 
@@ -229,9 +211,6 @@ def closeDB(conn, cur):
 
         # Close DB connection
         cur.close()
-        
-        # Log
-        # debugLog(style.GREEN, "Database connection successfully closed", logging.INFO)
 
     except (Exception, psycopg2.Error) as error :
         debugLog(style.RED, "Error while trying to connect in PostgreSQL database : {}".format(error), logging.ERROR)
@@ -255,9 +234,6 @@ def getCountfromDB(DB_params, DB_schema, tableName, queryFilter=None, connInput 
     # Execute query
     cur.execute(countQuery)
     countValue = cur.fetchone()[0]
-
-    # Log
-    # debugLog(style.BLUE, "Found {} entites in table {}".format(countValue, tableName), logging.INFO)
 
     if connInput is None and curInput is None:
         # Final close cursor & DB
@@ -292,19 +268,11 @@ def insertDataInDB(DBcursor, sqlQuery):
     except psycopg2.Error as e:
         print(e)
         raise
-    
-    #TODO: Get return data ?
-    # dataValues = json.dumps(cur.fetchall(), indent=2, default=dateConverter)
-
     return DBcursor
 
 def updateDataInDB(DBcursor, sqlQuery):
     # Update Data
     DBcursor.execute(sqlQuery)
-    
-    #TODO: Get return data ?
-    # dataValues = json.dumps(cur.fetchall(), indent=2, default=dateConverter)
-
     return DBcursor
 
 def deleteDataInDB(DB_params, DB_schema, tableName, queryFilter=None):
@@ -646,17 +614,6 @@ def flattenGeom(GDFgeometry):
 # ---- FILES OPERATIONS ----
 # --------------------------
 
-# def loadGeoJSONtoDF(filePath):
-#     #TODO!: Try/Catch error ?
-#     # Read
-#     currentDf = gp.read_file(filePath)
-#     # Count
-#     lenDF = len(currentDf)
-#     # Log
-#     debugLog(style.GREEN, "GeoJSON file \'{}\' loaded successfully (with {} entites)".format(filePath, lenDF), logging.INFO)
-
-#     return currentDf
-
 def createGDFfromGeoJSON(filePath):
     try:
         # Read
@@ -711,108 +668,6 @@ def memory(percentage=0.8):
         return wrapper
     return decorator
 
-# ---------------
-# ---- OTHER ----
-# ---------------
-
-# Loop in GDF row
-# for index, row in gdf.iterrows():
-
-# Make file with GDF
-# gdf.to_file('file.shp')
-
-# Regroup
-# unionGeom = unary_union(df)
-# dataUnion = {'geometry': unionGeom}
-# unionDF = gp.GeoDataFrame(dataUnion, crs=ENV_targetProj)
-
-# Shape temp name file
-# tempResultFileName = './tmp/temp_result_' + text_to_id(currMDataName) + "_" + dt + ".shp"
-
-# Simplify (GeoSerie)
-# dataSerieExplode = dataSerieExplode.simplify(0,1)
-
-# Clean attributes (keep only geometry) with explode
-# currentGeoSerie = df.loc[:,'geometry']
-# allGeoSerie = currentGeoSerie.explode(index_parts=False)
-# currGDF = gp.GeoDataFrame(allGeoSerie)
-
-# Rename HELL
-# unionDF = gp.GeoDataFrame(dataSerieExplode, crs=ENV_targetProj)
-# unionDF = unionDF.rename(columns={'0':'geometry'}, inplace=True)
-# unionDF.columns = ['geometry']
-# unionDF = unionDF.loc[:,'geometry']
-# unionDF.set_geometry('geometry', inplace=True)
-
-# Concat example
-# evaGDF = pd.concat([evaGDF, addGDF])
-
-# -- SIMPLIFY DATA TEST --
-# evaOneGDF = createGDFfromGeoJSON("./temp_eva_one_geom.shp")
-
-# evaOneGeoSerie = evaOneGDF.loc[:,'geometry']
-# evaOneGeoSerie = evaOneGeoSerie.explode(index_parts=False)
-
-# # evaOneSimplify = evaOneGeoSerie.simplify(0,1)
-# evaOneSimplify = evaOneGeoSerie.simplify(3)
-
-# evaOneFinalGDF = gp.GeoDataFrame(evaOneSimplify)
-# evaOneFinalGDF.columns = ['geometry']
-
-# print(evaOneFinalGDF)
-# evaOneFinalGDF.to_file("./result_eva_simplify10.shp")
-
-# # ---
-
-# batiOneGDF = createGDFfromGeoJSON("./temp_bati_one_geom.shp")
-# batiOneBuffered = makeBufferFromGDF(batiOneGDF, 2)
-# print(batiOneBuffered)
-
-# # batiOneGeoSerie = batiOneBuffered.loc[:,'geometry']
-# batiOneSimplify = batiOneBuffered.simplify(1)
-
-# batiOneFinalGDF = gp.GeoDataFrame(batiOneSimplify)
-# batiOneFinalGDF.columns = ['geometry']
-
-# print(batiOneFinalGDF)
-# batiOneFinalGDF.to_file("./result_bati_simplify.shp")
-
-# ALTERNATE TEST LOAD FROM API
-# url = "https://download.data.grandlyon.com/wfs/grandlyon"
-# wfs = WebFeatureService(url=url, version="2.0.0")
-# print(wfs)
-# Service provider 
-# print(wfs.identification.title)
-# Get WFS version
-# print(wfs.version)
-# Available methods
-# print([operation.name for operation in wfs.operations])
-# Available data layers
-# print(list(wfs.contents))
-# Get features from WFS 
-# response = wfs11.getfeature(typename='bvv:gmd_ex', bbox=(4500000,5500000,4500500,5500500), srsname='urn:x-ogc:def:crs:EPSG:31468')
-# response = wfs.getfeature(typename='ms:adr_voie_lieu.adrnomvoie')
-# print(response)
-
-# # Convert in native Python type 
-# # Create list
-# list = ('toto', 'titi', 'tutu', 'tata')
-# print(list)
-# print(type(list))
-# print(list[0])
-
-# # Tuple to Array
-# list_arr = np.asarray(list)
-# print(list_arr)
-# print(type(list_arr))
-# print(list_arr[0])
-
-# # Array to Tuple
-# list_flat = tuple(list_arr)
-# print(list_flat)
-# print(type(list_flat))
-# print(list_flat[0])
-
 # ---------------------
 # ---- COLOR STYLE ----
 # ---------------------
@@ -854,15 +709,8 @@ def getProgress(DBcursor, DBSchema, codeInsee, id_factor=None):
 
     qry = 'SELECT count(*) FROM '+ DBSchema + '.'  + stage + '_progress WHERE insee = ' + codeInsee + qryFilter
     debugLog(style.YELLOW, qry, logging.INFO)
-    DBcursor.execute(qry)
-    # debugLog(style.YELLOW, "fetchall: {}".format(DBcursor.fetchall()), logging.INFO)
-    # debugLog(style.YELLOW, "fetchone: {}".format(DBcursor.fetchone()), logging.INFO)
-    # dataValues = DBcursor.fetchall()[0][0]  # Accéder à l'élément à l'indice 0 de la première liste
-
-    # results = DBcursor.fetchall() 
-    
+    DBcursor.execute(qry)   
     dataValues = DBcursor.fetchone()
-    debugLog(style.YELLOW, "fetchone : {}".format(dataValues), logging.INFO)
 
     if dataValues is None:
         return 0   
