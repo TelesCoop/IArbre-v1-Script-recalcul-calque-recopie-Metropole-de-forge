@@ -128,6 +128,7 @@ POSTGRES_PORT       5432
 POSTGRES_SERVER     calqul-db-service (Le service OpenShift qui est routé vers la base PostGIS)
 POSTGRES_USER       calqul
 POSTGRES_SCHEMA     calqul
+
 ## Deploy
 
 ### Déploiemet d'un Job Openshift
@@ -152,41 +153,38 @@ Doc :
    Sous la console OpenShift, menu 'Secrets' copier le Yaml du secret àrb-data-access-token` et le créer dans le nouveau namspace.
 
 #### Suppression d'un job
+
  - https://access.redhat.com/documentation/en-us/openshift_container_platform/3.4/html/developer_guide/dev-guide-scheduled-jobs
 
 #### Commandes lancées par le job 
+
 Le job déroule calcul en 6 étapes, avec un étape de mise à blanc complet de l'environnement (0), et une étape de dump du résultat (5).
 Après l'étape 1, toutes les autres étapes peuvent être relancées à n'importer quel moment tant qu'on execute tout jusqu'à la fin.
 exemple : si vous relancez 3, faîtes 3,4,5
 
-cleanup|init-grid|init-datas|compute-factors|compute-indices|dump-datas|all
+`cleanup|init-grid|init-datas|compute-factors|compute-indices|dump-datas|all`
+
 0. cleanup => Nettoie les tables de progression, nettoie le cache des tuiles, avant un recalcul complet.
 1. init-grid => Initialise la base de données avec chaque tuile sur tout le territoire.
 2. init-datas => Initialise toutes les données avec chaque facteur.
 3. compute-factors => Calcule tous les facteurs.
 4. compute-indices => Calcule les indices de chaque tuile.
 5. dump-datas => Effectue une sauvegarde de la base de données.
-. all => Lance toutes les étapes dans l'ordre décrit ci-dessus.
-  
-- main.py initCommunes
-  
-- main.py initGrid
-  
-- main.py initDatas
-  
-- main.py computeFactors
-  
-- main.py computeIndices
-  
-- main.py computeAll
-  
-- main.py test
-  
-- main.py testDB
-  
-- main.py help
+. all => Lance toutes les étapes dans l'ordre décrit ci-dessous.
+
+   - main.py initCommunes
+   - main.py initGrid
+   - main.py initDatas
+   - main.py computeFactors
+   - main.py computeIndices
+   - main.py computeAll
+   - main.py help
 
 #### Relancer un Job
 
  1. Se connecter à OpenShift
- 2. Supprimer le pod correspondant au 
+ 2. Supprimer le pod correspondant à l'étape du Job. 
+ 
+ >   __Par exemple__, pour l'étape `computeFactor`, le nom du job dans OpenShift est `calqul-stage-compute-factors-r01`, 
+ >   et le nom du pod associé à ce job est de la forme `calqul-stage-compute-factors-r01-xxxxx`
+ 
