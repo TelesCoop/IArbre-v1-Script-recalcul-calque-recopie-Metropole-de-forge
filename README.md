@@ -116,20 +116,66 @@ Vous trouverez le détail de ce projet sur les documents suivants :
 
 ## Intégration continue & Déploiement
 
+L'intégration continue et le déploiement continue fonctionne de façon semi-automatique à partir de la plateforme Gitlab (Forge). 
+La phase de build est réalisée automatiquement dans la Gitlab à chaque commit sur la branche.
+La seule branche qui n'est pas buildée est mla branche protégée : __main__.
+
+Ce dépôt est structuré en 4 branches.
+
+- __Main__ : La dernière version stable du code. **Cette branche n'est jamais ni buildée nu déployée, Il s'agit de la branche de référence et elle est protégée**.
+             Les mises à jour y sont contrôlées et effectuées à chaque nouvelle version fonctionnlle, testée et stable du code. 
+- __develop__ : Branche développement pour les nouvelles fonctionnalités. **Cette branche est buildée et déployée sur le namespace de développement ns-arb-d01**.
+- __rec__ : Branche d'intégration et de recette des nouvelles fonctionnalités. **Cette branche est buildée et déployée sur le namespace de recette ns-arb-r01**.
+- __pro__ : Branche de production de l'application. **Cette branche est buildée et déployée sur le namespace de production ns-arb-p01**.
+            Le build et le déploiement de cette branche est manuel.
+
 ## Build
-Image de base Debian : https://hub.docker.com/_/debian:buster-slim
 
 ### Configuration de Gitlab
-les variables comportant les données de connexion à la base PostGIS doivent être initiialisées dans Gitlab.
-Sous la rubrique Settings > CI/CD > Variables :
-POSTGRES_DB         calque_planta_temp
-POSTGRES_PASSWORD   xxxxxx
-POSTGRES_PORT       5432
-POSTGRES_SERVER     calqul-db-service (Le service OpenShift qui est routé vers la base PostGIS)
-POSTGRES_USER       calqul
-POSTGRES_SCHEMA     calqul
+Sous la rubrique Settings > CI/CD > Variables, chaque variable ci-dessous doit être initialisée pour chaque environnement :
 
-## Deploy
+#### DB_PARAMS
+- Type : File
+
+- Valeur :
+  
+> export POSTGRES_DB=calque_planta_temp
+> export POSTGRES_PASSWORD=xxxxx
+> export POSTGRES_PORT=5432
+> export POSTGRES_SERVER=calqul-db-service
+> export POSTGRES_USER=calqul
+> export POSTGRES_SCHEMA=base
+> export POSTGRES_EXTERNAL_PORT=300xx
+
+#### DEPLOY_RUNNER
+
+-  Type : Variable
+
+- Valeur : ns-arb-x01
+
+#### KUBECONFIG
+
+- Type : File
+
+- Valeur : (catte valeur est récuépérée à partir du manager Openshift)
+  
+> apiVersion: v1
+> clusters:
+>   - cluster:
+>       certificate-authority-data: 
+>       ...=
+>       server: 'https://api.air.grandlyon.fr:6443'
+>     name: 'cluster-interne-pro'
+> contexts:
+>      ....
+
+#### NAMESPACE_ENV
+
+-  Type : Variable
+
+- Valeur : dev/rec/pro
+
+## Deploy 
 
 ### Déploiemet d'un Job Openshift
 Le déploiement s'appuie sur un job OpenShift plutôt qu'un Pod. 
