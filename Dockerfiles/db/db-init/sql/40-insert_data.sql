@@ -42,7 +42,7 @@ VALUES
 INSERT INTO base.metadatas
 ("name", "version", "type", quality, source_url, source_name, temp_file_path, script_path, factors_list) 
 VALUES
-('Arbres alignements Métropole', 'v1', 'POINT', 'Bonne', 'https://download.data.grandlyon.com/wfs/grandlyon', 'ms:abr_arbres_alignement.abrarbre', NULL, '{arbre_souche.py, arbre.py}', '{1,2}'),
+('Arbres alignements Métropole', 'v1', 'POINT', 'Bonne', 'https://download.data.grandlyon.com/wfs/grandlyon', 'abr_arbres_alignement.abrarbre', NULL, '{arbre_souche.py, arbre.py}', '{1,2}'),
 ('Parkings surfacique', 'v1', 'POLYGON', 'Bonne', NULL, NULL, 'parkingsurfacique.geojson', NULL, '{3}'),
 ('SLT', 'v1', 'POINT', 'Bonne', NULL, NULL, 'sltmateriel.geojson', '{slt.py}', '{4}'),
 ('Stations velov', 'v1', 'POINT', 'Bonne', NULL, NULL, 'station_velov.geojson', '{velov.py}', '{5}'),
