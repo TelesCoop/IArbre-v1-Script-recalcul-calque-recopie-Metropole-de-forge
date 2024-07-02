@@ -146,6 +146,8 @@ Sous la rubrique Settings > CI/CD > Variables, chaque variable ci-dessous doit �
 > export POSTGRES_USER=calqul
 > export POSTGRES_SCHEMA=base
 > export POSTGRES_EXTERNAL_PORT=300xx
+> export POSTGRES_PVC_NAME=Nom du PVC de base se données (type ceph-rbd)
+> export FILESYSTEM_PVC_NAME=Nom du PVC filesystem (type Cephfs)
 
 #### DEPLOY_RUNNER
 
@@ -173,11 +175,11 @@ Sous la rubrique Settings > CI/CD > Variables, chaque variable ci-dessous doit �
 
 -  Type : Variable
 
-- Valeur : dev/rec/pro
+- Valeur : [d,r,p]01
 
 ## Deploy 
 
-### Déploiemet d'un Job Openshift
+### Déploiement d'un Job Openshift
 Le déploiement s'appuie sur un job OpenShift plutôt qu'un Pod. 
 L'intérêt réside dans le fait qu'un job se lance, fait ce qu'il a à faire et s'arrête lorsqu'il a fini, avec un code de sortie 0 ou 1.
 Il consomme les ressources nécessaires le temps de l'exécution de son script, puis s'arrête, contrairement au pod qui reste en attente une fois déployé et qui est relancé s'il tombe.
@@ -190,13 +192,13 @@ Doc :
 
 1. Créer un nouveau namespace openShift
    1. Créer les PVC sur le molèdes des PVC existants danss l'environnement de dev.
-      - pvc-02-ns-arb-[ENV]-claim : 40Go - cephfs
-      - pvc-03-ns-arb-[ENV]-claim : 20Go -  cephfs
+      - pvc-xx-ns-arb-[ENV]-claim : 40Go - ceph-rbd
+      - pvc-xx-ns-arb-[ENV]-claim : 20Go -  cephfs
    2. Créer un Runner (cf https://guide.air.grandlyon.fr)
    3. Récupérer le KUBECONFIG
 2. Duppliquer toutes les variables Gitlab liées à un environnement
-3. Créer le token d'accès au dépôt des données cartographiques
-   Sous la console OpenShift, menu 'Secrets' copier le Yaml du secret àrb-data-access-token` et le créer dans le nouveau namspace.
+3. Créer le token d'accès au __dépôt des données cartographiques__
+   Sous la console OpenShift, menu 'Secrets' copier le Yaml du secret `arb-data-access-token` et le créer dans le nouveau namspace.
 
 #### Suppression d'un job
 

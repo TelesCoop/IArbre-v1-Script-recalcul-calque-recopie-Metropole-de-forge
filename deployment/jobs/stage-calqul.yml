@@ -18,7 +18,7 @@ spec:
       volumes:
       - name: arb-data
         persistentVolumeClaim: 
-          claimName: pvc-03-${NAMESPACE}-claim
+          claimName: ${FILESYSTEM_PVC_NAME}
       containers:
       - name: calqul-stage-${CALQUL_ACTION}-${NAMESPACE_ENV}
         # Image Python de calcul du calque

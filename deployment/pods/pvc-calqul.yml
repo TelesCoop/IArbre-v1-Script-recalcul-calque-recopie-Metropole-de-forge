@@ -42,8 +42,8 @@ spec:
       volumes:
         - name: data
           persistentVolumeClaim:
-            claimName: pvc-02-${NAMESPACE}-claim
+            claimName: ${POSTGRES_PVC_NAME}
         - name: data2
           persistentVolumeClaim:
-            claimName: pvc-03-${NAMESPACE}-claim
+            claimName: ${FILESYSTEM_PVC_NAME}
             
