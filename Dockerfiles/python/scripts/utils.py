@@ -713,7 +713,12 @@ def getProgress(DBcursor, DBSchema, codeInsee, id_factor=None):
     dataValues = DBcursor.fetchone()
 
     if dataValues is None:
-        return 0   
+        return 0  
+    try:
+        ret = dataValues['count']
+    except:
+        return 0
+    
     return dataValues['count'] 
 
 def resetProgress(DB_params, DB_schema):
