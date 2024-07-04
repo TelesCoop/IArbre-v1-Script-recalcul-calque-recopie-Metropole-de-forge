@@ -34,11 +34,11 @@ spec:
           mountPath: "/arb-data/run" # storing a file telling export-job the state of python script
         # Sondes
         env:
-          - name: PGPASSWORD
-            valueFrom:
-              secretKeyRef:
-                name: database-secret-${NAMESPACE_ENV}
-                key: password 
+          # - name: PGPASSWORD
+          #   valueFrom:
+          #     secretKeyRef:
+          #       name: database-secret-${NAMESPACE_ENV}
+          #       key: password 
           - name: HTTP_PROXY
             value: "http://proxyhttppro.grandlyon.fr:8080"
           - name: HTTPS_PROXY

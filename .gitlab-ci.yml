@@ -59,7 +59,7 @@ variables:
   # 7. all              => Launch all stages in described order above.
 .apply_confs: &apply_confs
   # Secrets
-  - envsubst < deployment/secrets/database-secret.yml | oc apply -f -
+  # - envsubst < deployment/secrets/database-secret.yml | oc apply -f -
 
   # # PVC Access
   # -  envsubst < deployment/pods/pvc-calqul.yml | oc apply -f -
