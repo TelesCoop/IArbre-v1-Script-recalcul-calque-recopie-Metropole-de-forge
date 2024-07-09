@@ -133,6 +133,9 @@ if [ $action == "init-grid"  ] || [ $action == "all"  ]; then
             wait -n
     fi;
   done
+  # no more jobs to be started but wait for pending jobs
+  # (all need to be finished)
+  wait 
 fi
 
 if [ $action == "init-datas"  ] || [ $action == "all"  ]; then
@@ -159,7 +162,9 @@ if [ $action == "compute-factors"  ] || [ $action == "all"  ]; then
       fi;
 
   done
-
+  # no more jobs to be started but wait for pending jobs
+  # (all need to be finished)
+  wait 
 fi
 
 if [ $action == "compute-indices"  ] || [ $action == "all"  ]; then

@@ -359,7 +359,7 @@ def insertGDFintoDB(DB_params, DB_schema, gdf, tablename, columnsListToDB):
 
     # Insert with copy_from
     try:
-        cur.copy_from(buffer, tablename, sep=";", columns=columnsListToDB)
+        cur.copy_from(buffer, DB_schema + "." + tablename, sep=";", columns=columnsListToDB)
         conn.commit()
     except (Exception, psycopg2.DatabaseError) as error:
         debugLog(style.RED, "Error while inserting : {}".format(error), logging.ERROR)
