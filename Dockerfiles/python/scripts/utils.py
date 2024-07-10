@@ -199,9 +199,9 @@ def connectDB(params_DB, jsonEnable = False, setSearchpath = True):
         else:
             cur = conn.cursor()
         
-        # Set Schema 'base'
-        if setSearchpath:
-            cur.execute(f'SET search_path TO base')
+        # # Set Schema 'base'
+        # if setSearchpath:
+        #     cur.execute(f'SET search_path TO '+ params_DB['schema'])
 
         return conn, cur
 

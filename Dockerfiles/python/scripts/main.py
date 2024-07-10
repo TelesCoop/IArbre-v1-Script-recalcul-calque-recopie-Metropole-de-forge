@@ -899,6 +899,8 @@ def initEnv():
         "user"      : os.getenv('DB_USER'),
         "password"  : os.getenv('DB_PWD'),
         "database"  : os.getenv('DB_NAME'),
+        "schema"    : os.getenv('DB_SCHEMA').strip(),
+        "options"   : "-c search_path="+os.getenv('DB_SCHEMA').strip(),
         "keepalives"  : 1,
         "keepalives_idle"  : 5,
     }
