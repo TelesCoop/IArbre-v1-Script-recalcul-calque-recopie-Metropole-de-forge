@@ -190,7 +190,7 @@ def text_to_id(text):
 # ---- DATA OPERATIONS ----
 # -------------------------
 
-def connectDB(params_DB, jsonEnable = False):
+def connectDB(params_DB, jsonEnable = False, setSearchpath = True):
     try:
         conn = psycopg2.connect(**params_DB)
         cur = None
@@ -200,7 +200,8 @@ def connectDB(params_DB, jsonEnable = False):
             cur = conn.cursor()
         
         # Set Schema 'base'
-        cur.execute(f'SET search_path TO base')
+        if setSearchpath:
+            cur.execute(f'SET search_path TO base')
 
         return conn, cur
 
@@ -353,7 +354,7 @@ def insertGDFintoDB(DB_params, DB_schema, gdf, tablename, columnsListToDB):
     insertTimer = startTimerLog('Inserting GDF data')
 
     # Connect DB
-    conn, cur = connectDB(DB_params)
+    conn, cur = connectDB(DB_params, False)
 
     # Save dataframe to an in memory buffer
     buffer = StringIO()
