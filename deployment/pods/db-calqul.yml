@@ -61,10 +61,10 @@ spec:
         resources:
           limits:
             cpu: 400m
-            memory: 500Mi
+            memory: 750Mi
           requests:
             cpu: 200m
-            memory: 256Mi
+            memory: 500Mi
         volumeMounts:
           # need a subpath as postgres wants an empty folder (the mounted folder `$PGDATA` has a `lost+found` directory)
           # see https://stackoverflow.com/questions/51168558/how-to-mount-a-postgresql-volume-using-aws-ebs-in-kubernete
