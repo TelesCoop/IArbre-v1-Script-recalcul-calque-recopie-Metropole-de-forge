@@ -354,7 +354,7 @@ def insertGDFintoDB(DB_params, DB_schema, gdf, tablename, columnsListToDB):
     insertTimer = startTimerLog('Inserting GDF data')
 
     # Connect DB
-    conn, cur = connectDB(DB_params, False)
+    conn, cur = connectDB(DB_params,jsonEnable=False, setSearchpath=False)
 
     # Save dataframe to an in memory buffer
     buffer = StringIO()
