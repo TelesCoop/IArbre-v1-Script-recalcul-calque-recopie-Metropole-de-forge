@@ -22,6 +22,8 @@ chown -R postgres:0 /$PGDATA && \
 chmod 777 /$PGDATA
 # chmod -R g+rwx /$PGDATA ?? a tester ??
 
+COPY ./postgresql.conf $PGDATA
+RUN chmod 660 $PGDATA/postgresql.conf
 # Entry point. 
 COPY ./db-init/ /docker-entrypoint-initdb.d/
 
