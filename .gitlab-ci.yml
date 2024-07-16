@@ -196,9 +196,9 @@ Build Calqul Git-lfs:
   variables:
     CALQUL_ACTION: "compute-factors"
     MEM_REQUEST: "2000Mi"
-    CPU_REQUEST: "2000m"
+    CPU_REQUEST: 1
     MEM_LIMIT: "5000Mi"
-    CPU_LIMIT: "2000m"
+    CPU_LIMIT: 4
 
 4. Compute Indices:
   extends: .deploy_setup
