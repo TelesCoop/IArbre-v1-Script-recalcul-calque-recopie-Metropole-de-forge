@@ -17,3 +17,4 @@ echo "--------------------------------------------------------------------------
 psql -U $POSTGRES_USER -d $POSTGRES_DB -f /docker-entrypoint-initdb.d/sql/30-create_tables.sql
 psql -U $POSTGRES_USER -d $POSTGRES_DB -f /docker-entrypoint-initdb.d/sql/40-insert_data.sql
 psql -U $POSTGRES_USER -d $POSTGRES_DB -f /docker-entrypoint-initdb.d/sql/50-insert_communes.sql
+psql -U $POSTGRES_USER -d $POSTGRES_DB -f /docker-entrypoint-initdb.d/sql/60-tuning-parameters.sql

@@ -11,7 +11,7 @@ ARG HTTP_PROXY=""
 ENV HTTP_PROXY=$HTTP_PROXY
 ENV HTTPS_PROXY=$HTTP_PROXY
 ###---------------  LOCAL BUILD ONLY --------------------
-# ENV POSTGRES_HOST_AUTH_METHOD=trust
+ENV POSTGRES_HOST_AUTH_METHOD=trust
 ###--------------- /LOCAL BUILD ONLY --------------------
 
 USER root
@@ -22,8 +22,6 @@ chown -R postgres:0 /$PGDATA && \
 chmod 777 /$PGDATA
 # chmod -R g+rwx /$PGDATA ?? a tester ??
 
-COPY ./postgresql.conf $PGDATA
-RUN chmod 660 $PGDATA/postgresql.conf
 # Entry point. 
 COPY ./db-init/ /docker-entrypoint-initdb.d/
 
