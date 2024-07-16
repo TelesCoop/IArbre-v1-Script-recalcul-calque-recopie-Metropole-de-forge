@@ -36,7 +36,7 @@ archive_version="v$tag-$today"
 # Logging
 stage () {
   echo -e $line
-  echo -e "\e[96m$stage. $1\e[39m"
+  echo -e "\e[96m$stage. $1 - $(date +"%d/%m/%Y %H:%M:%S")\e[39m"
   echo -e $line
   stage=$((stage+1))
 }
