@@ -33,15 +33,27 @@ spec:
         - containerPort: 5432
           protocol: TCP
         readinessProbe:
-          tcpSocket:
-            port: 5432
+          exec:
+            command:
+              - bash
+              - '-c'
+              - pg_isready
           initialDelaySeconds: 15
-          periodSeconds: 10
+          timeoutSeconds: 5
+          periodSeconds: 30
+          successThreshold: 1
+          failureThreshold: 6
         livenessProbe:
-          tcpSocket:
-            port: 5432
+          exec:
+            command:
+              - bash
+              - '-c'
+              - pg_isready
           initialDelaySeconds: 15
-          periodSeconds: 20
+          timeoutSeconds: 5
+          periodSeconds: 30
+          successThreshold: 1
+          failureThreshold: 6
         env:
           - name: POSTGRES_DB
             value: "${POSTGRES_DB}"
