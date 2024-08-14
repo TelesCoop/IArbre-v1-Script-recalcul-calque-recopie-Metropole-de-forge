@@ -118,6 +118,18 @@ exemple : si vous relancez 3, faîtes 3,4,5
    - main.py initDatas
    - main.py computeFactors
    - main.py computeIndices
+  
+```mermaid
+flowchart TD
+    Deb[/début\] --> A   
+    A{Init<br>Grid} --> |pour chq commune| A
+    A -->|21M+ polygones| B[init Datas]
+    B --> |700k+ polygones| C{Compute<br>Factors}
+    C -->|pour chq commune| C
+    C -->|59 communes| D[Compute Indices]
+    D --> E[Dump Data]
+    E --> F[\fin/]
+```
 
 #### Relancer un Job
 
