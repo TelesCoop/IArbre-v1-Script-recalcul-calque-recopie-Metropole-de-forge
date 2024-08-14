@@ -120,7 +120,7 @@ exemple : si vous relancez 3, faîtes 3,4,5
    - main.py computeIndices
   
 ```mermaid
-flowchart TD
+flowchart LR
     Deb[/début\] --> A   
     A{Init<br>Grid} --> |pour chq commune| A
     A -->|21M+ polygones| B[init Datas]
