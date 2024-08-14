@@ -1,7 +1,7 @@
 # Script de recalcul du calque de plantabilité
 
 - [Documentation générale du projet](https://forge.grandlyon.com/systemes-dinformation/arb_calque_plantabilite/)
-- [Documentation d'installation de ce code](https://forge.grandlyon.com/systemes-dinformation/script-recalcul-calque/)
+- [Documentation d'installation de ce code](https://forge.grandlyon.com/ERASME/script-recalcul-calque/)
 
 ## Intégration continue & Déploiement
 
